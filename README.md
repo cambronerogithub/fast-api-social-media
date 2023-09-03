@@ -78,7 +78,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 (or you can place less minutes if you want this
 
 ````
 
-After all of this to make it easier for you import the colection I have added in this project from the folder called: Colections and Environments
+After all of this to make it easier for you import the colection I have added in this project from the folder called: Colections and Environments, also please make sure you select the DEV environment
 
 Please note that if you want to use the APIs first (Locally) you need to:
 
