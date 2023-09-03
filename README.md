@@ -22,25 +22,29 @@
 First clone this repo by using following command
 ````
 
-git clone https://github.com/Sanjeev-Thiyagarajan/fastapi-course.git
+git clone https://github.com/cambronerogithub/fast-api-social-media
 
 ````
 then 
 ````
 
-cd fastapi-course
+cd fast-api-social-media
 
 ````
 
-Then install fastapp using all flag like 
+In case you want you can create a virtual environment:
+
+- pip install virtualenv
+- virtualenv ./venv
+- To activate the virtualenv you can run the following command: ./venv/Scripts/activate
 
 ````
-
-pip install fastapi[all]
-
+Please install the dependencies through pip
+````
+pip install -r ./requirements.txt
 ````
 
-Then go this repo folder in your local computer run follwoing command
+Then go this repo folder in your local computer run following command
 ````
 
 uvicorn main:app --reload
@@ -55,26 +59,30 @@ http://127.0.0.1:8000/docs
 
 ````
 
-## After run this API you need a database in postgres 
-Create a database in postgres then create a file name .env and write the following things in you file 
+## After run this API you need a database in postgres, in this case you can use PostgreSQL Version: 13 in the following link: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+Create a database in postgres then create a file name .env and write the following things in your file 
 
 ````
 DATABASE_HOSTNAME = localhost
 DATABASE_PORT = 5432
-DATABASE_PASSWORD = passward_that_you_set
-DATABASE_NAME = name_of_database
-DATABASE_USERNAME = User_name
+DATABASE_PASSWORD = {passward_that_you_set}
+DATABASE_NAME = {your database name}
+DATABASE_USERNAME = {your username}
 SECRET_KEY = 09d25e094faa2556c818166b7a99f6f0f4c3b88e8d3e7 
 ALGORITHM = HS256
-ACCESS_TOKEN_EXPIRE_MINUTES = 60(base)
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 (or you can place less minutes if you want this value must be an integer)
 
 ````
-### Note: SECRET_KEY in this exmple is just a psudo key. You need to get a key for youself and you can get the SECRET_KEY  from fastapi documantion
- 
+### Note: SECRET_KEY in this exmple is just a psudo key. You need to get a key for youself and you can get the SECRET_KEY from fastapi documention: https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
 
-### Here is the link of the playlist on youtube you can learn all about FASTAPI
- 
-<div id="badges">
-  <a href="https://www.youtube.com/watch?v=Yw4LmMQXXFs&list=PL8VzFQ8k4U1L5QpSapVEzoSfob-4CR8zM&index=2">
-    <img src="https://freshidea.com/jonah/youtube-api/subscribers-badge.php?label=Subscribers&style=for-the-badge&color=red&labelColor=ce4630" alt="youtube Badge"/>
-  </a>
+
+````
+
+After all of this to make it easier for you import the colection I have added in this project from the folder called: Colections and Environments
+
+Please note that if you want to use the APIs first (Locally) you need to:
+
+- Create an user with Post User
+- Call the endpoint Login User (please note you should send in the Body form-data the email and the password of the user created), in order to verify if it works you should receive an access_token
+- You now can do whatever you want, create posts, delete posts, get posts ...
+

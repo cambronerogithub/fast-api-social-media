@@ -5,6 +5,7 @@ from fastapi import FastAPI, Response, status, HTTPException, Depends, APIRouter
 import schemas
 from sqlalchemy.orm import Session
 import utils, oauth2
+from typing import List
 
 router = APIRouter(
     prefix="/users",
@@ -39,7 +40,42 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     
     return new_user
 
-@router.get('/')
+@router.get('/', response_model=List[schemas.UserOut])
 def get_user(db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
     user = db.query(models.User).all()
     return user
+
+
+@router.delete('/{id}')
+def delete_user(id: int,db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
+    
+    user_query = db.query(models.User).filter(models.User.id == id)
+    user_found = user_query.first()
+    if user_found == None:
+        
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"The user with the id: {id} does not exist")
+        
+    user_query.delete(synchronize_session=False)
+    db.commit()
+    
+    return f"The user with the id: {id} has been deleted"
+
+@router.put("/{id}")
+def update_user_password(id: int, updated_user: schemas.UserPassword, db: Session = Depends(get_db), user_logged: int = Depends(oauth2.get_current_user)):
+
+    if id != user_logged.id:
+        
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=f"You are not allowed to change the password of another user")
+    
+    user_query = db.query(models.User).filter(models.User.id == id)
+    user_found = user_query.first()
+    
+    if user_found == None:
+        
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"The user with the id: {id} doesn't exist")
+    
+    user_query.update(dict(updated_user), synchronize_session = False)
+    
+    db.commit()
+    
+    return f"Your password has been successfully changed"

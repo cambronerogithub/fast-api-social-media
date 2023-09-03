@@ -34,6 +34,8 @@ class PostOut(BaseModel):
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
+class UserPassword(BaseModel):
+    password: str
     
 class User_Email(BaseModel):
     email: EmailStr
@@ -56,4 +58,3 @@ class TokenData(BaseModel):
     
 class Vote(BaseModel):
     post_id: int
-    dir: conint(le=1)
